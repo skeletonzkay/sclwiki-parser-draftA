@@ -1,0 +1,25 @@
+!project description
+
+* parseLine
+ parse each line split by crlf
+
+* wiki
+ hiki like wiki parser (wiki extends)
+
+* wikiProcesss
+ parse text each lines use wikiParser
+
+!compiling
+
+*windows 
+set SCALA_HOME=${scala home}
+set PATH=$PATH;$ANT_BIN
+build.bat
+
+*linux and osx shell
+export SCALA_HOME=${scala home}
+export PATH=$PATH:$ANT_BIN
+build.sh
+
+
+

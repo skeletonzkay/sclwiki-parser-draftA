@@ -1,0 +1,15 @@
+!wikiparser sspecification
+
+*header
+!header   = <h1>${header}</h1>
+!!header  = <h2>${header}</h2>
+!!!header = <h3>${header}</h3>
+
+*style
+{styleclass|body} = <span class="${styleclass}">${body}</span>
+{{style|body}} = <span style="style">${body}</span>
+
+*link
+[linkpath|name] = <a href="${linkpath}">${name}</a>
+
+
