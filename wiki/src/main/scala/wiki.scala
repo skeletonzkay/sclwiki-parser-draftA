@@ -60,6 +60,11 @@ case class Meta(item:String) extends Base{
        case _ => "" 
    } }
 }
+
+case class Br(item:String) extends Base{
+   override def toString = { "<br />" }
+}
+
 case class Item(item:Base) extends Base{
    override def toString = { item.toString() }
 }
@@ -69,6 +74,8 @@ case class Items(item:List[Base]) extends Base{
 }
 
 object WikiParsers extends RegexParsers{
+
+  override def skipWhitespace = false
 
   def wiki:Parser[Base] = ( h3 | h2 | h1 | paragraph )^^ Block
    
@@ -83,7 +90,7 @@ object WikiParsers extends RegexParsers{
 
   def special:Parser[Ident] = (header | escape) ^^ Ident
 
-  def item:Parser[Item] = (style | link | styleOption | linkOption | ident | meta ) ^^ Item
+  def item:Parser[Item] = (style | link | styleOption | linkOption | ident | meta | esbr | br ) ^^ Item
 
   def style:Parser[Style] = styleBegin ~> styleItem <~ styleEnd ^^ Style
   def link:Parser[Link] = linkBegin  ~> linkItem <~ linkEnd ^^ Link
@@ -95,6 +102,11 @@ object WikiParsers extends RegexParsers{
   def linkItem:Parser[LinkItem] = ident ~ separate ~ item ^^ {case a~b~c => LinkItem(a,c) }
  
   def meta = ( tagBegin | tagEnd | amp | quote | dquote ) ^^ Meta 
+
+  def esbr = ( escape ~ br ) ^^ { case a ~ b => Ident("") }
+  def br   = ("\r\n" | "\r" | "\n" ) ^^ Br
+
+//  def escaped:Parser[Any]  = (escape ~(styleBegin|styleEnd|linkBegin|linkEnd|separate) ) ^^ Ident
 
   def header     = "!"
   def styleBegin = "{"

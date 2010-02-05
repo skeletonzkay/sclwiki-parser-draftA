@@ -39,6 +39,6 @@ package parseLine
 
     def join(l:List[Any]) = {("" /: l )(_+""+_)}
 
-    def qret(a:String,b:String) = { "" }//{ a + "" + b }
+    def qret(a:String,b:String) = { b }//{ a + "" + b }
   }
 }
