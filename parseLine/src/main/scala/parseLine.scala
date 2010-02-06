@@ -27,7 +27,7 @@ package parseLine
 
     def lineWithReturn:Parser[Line] = ret ~ line ^^ { case r ~ a => Line(a) }
 
-    def line:Parser[String] = rep1(nor | quotedret | quote) ^^ { case a => "" + join(a) + "" }
+    def line:Parser[String] = rep(nor | quotedret | quote) ^^ { case a => "" + join(a) + "" }
 
     def quotedret = quote ~ ret ^^ { case a ~ b =>  qret(a,b) }
 
